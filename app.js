@@ -31,9 +31,6 @@ client.on   ('message', msg => {
     }
    
 
-    if(msg.content.toLowerCase().startsWith(`${prefix}drr`)){
-         msg.reply("drr drr")
-    }
      
     /*replies to nudes (rickroll)*/
     if(msg.content.toLowerCase().startsWith(`${prefix}nudes`)){
