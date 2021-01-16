@@ -1,3 +1,6 @@
+//test test test
+
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const {botToken, giphytoken} = require("./config.json");
