@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 //const {botToken, giphytoken} = require("./config.json");
 //const giphyClient = require('giphy-js-sdk-core')
-gclient= giphyClient(giphytoken)
+//gclient= giphyClient(giphytoken)
 client.login(botToken);
 
 
@@ -37,23 +37,23 @@ client.on   ('message', msg => {
 
         msg.reply("Here you go! <https://rb.gy/enaq3a>")
     }
-
+/*==============================================================================================*/
     /*searches "random" on giphy and sends a random gif from top ten(two to ten?) results */
-    if(msg.content.toLowerCase().startsWith(`${prefix}randomgif`)){   
-        gclient.search('gifs', {"q": "random"}).
-        then((response)=>{
-            var responses = response.data.length;
-            var index = Math.floor(  (Math.random()*10)  +1  )   %responses;
-            var output = response.data[index];
-            console.log(output);
-            msg.channel.send({files:[output.images.fixed_height.url]})
-        }).catch(()=>{
-            console.log('error')
-        })
-    } 
+    // if(msg.content.toLowerCase().startsWith(`${prefix}randomgif`)){   
+    //     gclient.search('gifs', {"q": "random"}).
+    //     then((response)=>{
+    //         var responses = response.data.length;
+    //         var index = Math.floor(  (Math.random()*10)  +1  )   %responses;
+    //         var output = response.data[index];
+    //         console.log(output);
+    //         msg.channel.send({files:[output.images.fixed_height.url]})
+    //     }).catch(()=>{
+    //         console.log('error')
+    //     })
+    // } 
 
     /*searches giphy with given keyword */
-
+/*========================================================================*/
     if(msg.content.toLowerCase().startsWith(`${prefix}gif: `)){
        
         var searchTerm = msg.content.slice(5);
