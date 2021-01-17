@@ -6,7 +6,7 @@ const client = new Discord.Client();
 //const {botToken, giphytoken} = require("./config.json");
 //const giphyClient = require('giphy-js-sdk-core')
 //gclient= giphyClient(giphytoken)
-client.login(botToken);
+client.login(process.env.botToken);
 
 
 
@@ -58,7 +58,7 @@ client.on   ('message', msg => {
        
         var searchTerm = msg.content.slice(5);
         console.log(searchTerm)
-        let url = `https://api.giphy.com/v1/gifs/search?api_key=${giphytoken}&limit=10&q=`
+        let url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.giphytoken}&limit=10&q=`
         url = url.concat(searchTerm)
         fetch(url).then(response => response.json())
                   .then(content => {
