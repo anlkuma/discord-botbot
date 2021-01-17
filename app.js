@@ -3,8 +3,8 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const {botToken, giphytoken} = require("./config.json");
-const giphyClient = require('giphy-js-sdk-core')
+//const {botToken, giphytoken} = require("./config.json");
+//const giphyClient = require('giphy-js-sdk-core')
 gclient= giphyClient(giphytoken)
 client.login(botToken);
 
