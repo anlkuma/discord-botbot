@@ -93,9 +93,9 @@ client.on   ('message', msg => {
 
     }
 
-    if(msg.content.toLowerCase().startsWith(`${prefix}sub: `)){
+    if(msg.content.toLowerCase().startsWith(`r${prefix}`)){
         
-        var subreddit = msg.content.slice(6);
+        var subreddit = msg.content.slice(2);
         console.log(subreddit);
         
 
