@@ -141,7 +141,7 @@ client.on('guildMemberAdd', member => {
                 'https://media3.giphy.com/media/3owzWkGtQ3us1pV0qc/giphy.gif', 'https://media.tenor.com/images/2afb6067cab74f3258c330035d909333/tenor.gif']
 
             const random = Math.floor(Math.random() * urls.length);        
-            console.log(random, months[random]);
+            console.log(random, urls[random]);
             url = urls. array[Math.floor(Math.random() * array.length)];
    
 
