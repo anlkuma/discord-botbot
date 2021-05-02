@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fetch = require('node-fetch');
 const prefix = "!"
-
-
 const botToken = process.env.BOT_TOKEN
 const giphytoken = process.env.GIPHY_TOKEN
 
@@ -137,15 +135,19 @@ client.on   ('message', msg => {
 client.on('guildMemberAdd', member => {
     console.log("member added");
 
-    let urls = ['https://media2.giphy.com/media/KmEzemwIqhuF2/giphy.gif',      'https://media4.giphy.com/media/cJSDRt8csBx0A7YFfh/giphy.gif',
+    let urls = [ 'https://media4.giphy.com/media/cJSDRt8csBx0A7YFfh/giphy.gif',
                 'https://media3.giphy.com/media/3owzWkGtQ3us1pV0qc/giphy.gif', 'https://media.tenor.com/images/2afb6067cab74f3258c330035d909333/tenor.gif']
 
-            const random = Math.floor(Math.random() * urls.length);        
+            const random = Math.floor(Math.random() * urls.length);    // 3 urls  ==> returns 0 to 2    
             console.log(random, urls[random]);
-            url = urls. array[Math.floor(Math.random() * array.length)];
-   
-
-    client.channels.cache.get('747506311662534799').send(`Hey there chief, ${member.user}! Welcome to the Dantaka dantaka official discord server!`, {files: [url1]});
+         //   url = urls. array[Math.floor(Math.random() * array.length)];
+              //  url1 = urls[random]
+              
+              const channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+              const serverName = member.guild.name;
+              if (!channel) return;
+              channel.send(`Hey there chief, ${member.user}! Welcome to the ${serverName} official discord server!`, {files: [urls[random]]});
+   // client.channels.cache.get('747506311662534799').send(`Hey there chief, ${member.user}! Welcome to the Dantaka dantaka official discord server!`, {files: [urls[random]]});
        
     
 
@@ -187,8 +189,13 @@ client.on('guildMemberRemove', member => {
            
             let length = content.data.length;
             var index = Math.floor(  (Math.random()*10)  +1  )   %length;
-            client.channels.cache.get('747506311662534799').send(`Goodbye, ${member.user}! `, {files: [content.data[index].images.downsized.url]});
-           
+
+
+            const channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+            
+            if (!channel) return;
+            //channel.send(`Goodbye, ${member.user}! `, {files: [content.data[index].images.downsized.url]});
+            channel.send(`Goodbye, ${member.user}! `);
 
 
         }).catch(()=>{
