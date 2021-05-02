@@ -2,10 +2,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fetch = require('node-fetch');
 const prefix = "!"
-const {botToken, giphytoken} = require("./config.json");
-
-// const botToken = process.env.BOT_TOKEN
-// const giphytoken = process.env.GIPHY_TOKEN
+const botToken = process.env.BOT_TOKEN
+const giphytoken = process.env.GIPHY_TOKEN
 
 client.login(botToken);
 
