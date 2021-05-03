@@ -4,6 +4,8 @@ const fetch = require('node-fetch');
 const prefix = "!"
 const botToken = process.env.BOT_TOKEN
 const giphytoken = process.env.GIPHY_TOKEN
+//const {botToken, giphytoken} = require("./config.json");
+
 
 client.login(botToken);
 
@@ -67,13 +69,18 @@ client.on   ('message', msg => {
          if(msg.content.toLowerCase().startsWith(`${prefix}meme`)){
              var after = '';
            
-        fetch(`https://www.reddit.com/r/memes.json?after=${after}`).then(response=> response.json())
+        const sortOptions = ["top", "hot", "new", "rising"];
+        var sortIndex = Math.floor(Math.random() * sortOptions.length);
+
+        
+
+        fetch(`https://www.reddit.com/r/memes/${sortOptions[sortIndex]}.json?after=${after}`).then(response=> response.json())
         .then(body=>    {
 
             //Math.floor((Math.random() * x) + 1); random number between 1 and x
             //after = body.data.after
-
-
+               
+            console.log(`https://www.reddit.com/r/memes/${sortOptions[sortIndex]}.json?after=${after}`);
             var index = Math.floor((Math.random()* body.data.children.length ) + 1)
 
             if(body.data.children[index].data.post_hint==='image' || body.data.children[index].data.post_hint==='link' ){
@@ -95,12 +102,15 @@ client.on   ('message', msg => {
     }
 
     if(msg.content.toLowerCase().startsWith(`r${prefix}`)){
+
+        const sortOptions = ["top", "hot", "new", "rising"];
+        const sort = Math.floor(Math.random() * sortOptions.length);
         
         var subreddit = msg.content.slice(2);
         console.log(subreddit);
         
 
-        fetch(`https://www.reddit.com/r/${subreddit}.json?after=${after}`).then(response=> response.json())
+        fetch(`https://www.reddit.com/r/${subreddit}/${sort}.json?after=${after}`).then(response=> response.json())
         .then(body=>    {
 
             //Math.floor((Math.random() * x) + 1); random number between 1 and x
