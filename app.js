@@ -110,13 +110,13 @@ client.on   ('message', msg => {
         console.log(subreddit);
         
 
-        fetch(`https://www.reddit.com/r/${subreddit}/${sort}.json?after=${after}`).then(response=> response.json())
+        fetch(`https://www.reddit.com/r/${subreddit}/${sortOptions[sortIndex]}.json?after=${after}`).then(response=> response.json())
         .then(body=>    {
 
             //Math.floor((Math.random() * x) + 1); random number between 1 and x
             //after = body.data.after
 
-
+            console.log(`https://www.reddit.com/r/${subreddit}/${sortOptions[sortIndex]}.json?after=${after}`);
             var index = Math.floor((Math.random()* body.data.children.length ) + 1)
 
             if(body.data.children[index].data.post_hint==='image' || body.data.children[index].data.post_hint==='link' ){
