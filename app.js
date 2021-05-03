@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const prefix = "!"
 const botToken = process.env.BOT_TOKEN
 const giphytoken = process.env.GIPHY_TOKEN
-//const {botToken, giphytoken} = require("./config.json");
+// const {botToken, giphytoken} = require("./config.json");
 
 
 client.login(botToken);
@@ -65,7 +65,7 @@ client.on   ('message', msg => {
                   })  
     } 
 
-      /**fetches a random post from top 25 posts sorted by hot from r/memes  */ 
+      /**fetches a random post from top 25 posts sorted by top/hot/new/rising from r/memes  */ 
          if(msg.content.toLowerCase().startsWith(`${prefix}meme`)){
              var after = '';
            
@@ -104,11 +104,11 @@ client.on   ('message', msg => {
     if(msg.content.toLowerCase().startsWith(`r${prefix}`)){
 
         const sortOptions = ["top", "hot", "new", "rising"];
-        const sort = Math.floor(Math.random() * sortOptions.length);
+        const sortIndex = Math.floor(Math.random() * sortOptions.length);
         
         var subreddit = msg.content.slice(2);
         console.log(subreddit);
-        
+        var after = '';
 
         fetch(`https://www.reddit.com/r/${subreddit}/${sortOptions[sortIndex]}.json?after=${after}`).then(response=> response.json())
         .then(body=>    {
