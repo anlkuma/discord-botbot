@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 const prefix = "!"
 const botToken = process.env.BOT_TOKEN
 const giphytoken = process.env.GIPHY_TOKEN
-// const {botToken, giphytoken} = require("./config.json");
+
 
 
 client.login(botToken);
@@ -101,9 +101,13 @@ client.on   ('message', msg => {
 
     }
 
+
+
+
+
     if(msg.content.toLowerCase().startsWith(`r${prefix}`)){
 
-        const sortOptions = ["top", "hot", "new", "rising"];
+        const sortOptions = ["top", "hot"];
         const sortIndex = Math.floor(Math.random() * sortOptions.length);
         
         var subreddit = msg.content.slice(2);
@@ -113,14 +117,47 @@ client.on   ('message', msg => {
         fetch(`https://www.reddit.com/r/${subreddit}/${sortOptions[sortIndex]}.json?after=${after}`).then(response=> response.json())
         .then(body=>    {
 
+            //Math.random() returns between 0 and 1 
+            //Math.random()*x returns between 0 and x-1 before decimal
+            //Math.random()*x + 1 returns between 1 and x
+            // Math.random()*3+21  21 or 22 or 23
+            //Math.random()*x + y = beetween y to y+x
+            //+2 returns between 2 and x+1
             //Math.floor((Math.random() * x) + 1); random number between 1 and x
             //after = body.data.after
 
             console.log(`https://www.reddit.com/r/${subreddit}/${sortOptions[sortIndex]}.json?after=${after}`);
-            var index = Math.floor((Math.random()* body.data.children.length ) + 1)
+            var index = Math.floor((Math.random()* body.data.children.length ))
 
-            if(body.data.children[index].data.post_hint==='image' || body.data.children[index].data.post_hint==='link' ){
+            while(body.data.children[index].data.distinguished==='moderator'|| 
+                    body.data.children[index].data.post_hint==='hosted:video'){
+                index++;
+            }
 
+            if(body.data.children[index].data.selftext!==''){
+
+                if(body.data.children[index].data.selftext.length<2048){
+                   //text posts
+                   console.log("joke desc length: ",`${body.data.children[index].data.selftext.length}`)
+                   const embedToSend = new Discord.MessageEmbed()
+   .setColor('#0099ff')
+   .setTitle(body.data.children[index].data.title)
+   .setURL(body.data.children[index].data.url)
+   .setDescription(body.data.children[index].data.selftext)
+    msg.channel.send(embedToSend);
+
+
+     }
+                        else{
+                            console.log("joke desc length: ",`${body.data.children[index].data.selftext.length}`)
+
+                            msg.channel.send(body.data.children[index].data.title+"\n\n\n"+ 
+                            body.data.children[index].data.selftext);
+                    
+            }}
+
+           else if(body.data.children[index].data.post_hint==='image' || body.data.children[index].data.post_hint==='link' ){
+                        //image and gif posts
                 let imgsrc = body.data.children[index].data.url_overridden_by_dest
                 // embed.setTitle(body.data.children[index].data.title)
                 // embed.setImage(imgsrc);
@@ -128,8 +165,10 @@ client.on   ('message', msg => {
                 msg.channel.send(`${body.data.children[index].data.title}`, {files:[imgsrc]});
             }
 
+         
+
             else
-            msg.channel.send("come again")
+            msg.channel.send("try again")
 
         })
 
